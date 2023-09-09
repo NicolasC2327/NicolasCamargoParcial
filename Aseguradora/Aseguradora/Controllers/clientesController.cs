@@ -1,12 +1,61 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data.Repositorio;
+using Microsoft.AspNetCore.Mvc;
+using Modelo;
+
 
 namespace Aseguradora.Controllers
 {
-    public class clientesController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ClienteController : ControllerBase
     {
-        public IActionResult Index()
+        public readonly iclientesRepository _clienteRepsitory;
+        public ClienteController(iclientesRepository clienteRepsitory)
         {
-            return View();
+            _clienteRepsitory = clienteRepsitory;
+        }
+        [HttpGet]
+        public async Task<IActionResult> getClientes()
+        {
+            return Ok(await _clienteRepsitory.getClientes());
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> getClienteById(int id)
+        {
+            return Ok(await _clienteRepsitory.getClienteById(id));
+        }
+        [HttpPost]
+        public async Task<IActionResult> InsertCliente([FromBody] clientes cliente)
+        {
+            if (cliente == null)
+            {
+                return BadRequest();
+            }
+            if (ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var created = await _clienteRepsitory.insertCliente(cliente);
+            return Ok(created);
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateCliente([FromBody] clientes cliente)
+        {
+            if (cliente == null)
+            {
+                return BadRequest();
+            }
+            if (ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var update = await _clienteRepsitory.insertCliente(cliente);
+            return Ok(update);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCLienteById(int id)
+        {
+            return Ok(await _clienteRepsitory.deleteCliente(id));
         }
     }
 }

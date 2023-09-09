@@ -1,15 +1,27 @@
 ﻿
+using Dapper;
+using MySql.Data.MySqlClient;
 using Modelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySqlX.XDevAPI;
 
 namespace Data.Repositorio
 {
     public class clientesRepository : iclientesRepository
     {
+        public readonly mysqlConfig _connection;
+        public clientesRepository(mysqlConfig connection)
+        {
+            _connection = connection;
+        }
+        protected MySqlConnection dbConnection()
+        {
+            return new MySqlConnection(_connection._connectionString);
+        }
         public Task<bool> deleteCliente(int id)
         {
             throw new NotImplementedException();
@@ -17,12 +29,17 @@ namespace Data.Repositorio
 
         public Task<clientes> getClienteById(int id)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var consulta = @"select * from clientes where ID=@ID ";
+            return db.QueryFirstOrDefaultAsync<clientes>(consulta, new { Id = id });
         }
+        
 
         public Task<IEnumerable<clientes>> getClientes()
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var consulta = @"select * from clientes";
+            return db.QueryAsync<clientes>(consulta);
         }
 
         public Task<bool> insertCliente(clientes cliente)

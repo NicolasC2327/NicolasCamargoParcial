@@ -14,7 +14,6 @@ var connection = new mysqlConfig(builder.Configuration.GetConnectionString("mysq
 builder.Services.AddSingleton(connection);
 builder.Services.AddScoped<iclientesRepository, clientesRepository>();
 builder.Services.AddScoped<iempleadosRepository, empleadosRepository>();
-builder.Services.AddScoped<isegurosRepository, segurosRepository>();
 builder.Services.AddScoped<iventasRepository, ventasRepository>();
 var app = builder.Build();
 
