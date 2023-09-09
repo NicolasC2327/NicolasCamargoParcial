@@ -11,8 +11,8 @@ namespace Data.Repositorio
     {
         Task<IEnumerable<empleados>> getEmpleados();
         Task<empleados> getEmpleadosbyID(int ID);
-        Task<bool> insertEmpleado(empleados conductor);
-        Task<bool> updateEmpleado(empleados conductor);
+        Task<bool> insertEmpleado(empleados empleados);
+        Task<bool> updateEmpleado(empleados empleados);
         Task<bool> deleteEmpleado(int ID);
     }
 }

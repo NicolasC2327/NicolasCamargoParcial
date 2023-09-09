@@ -39,9 +39,15 @@ namespace Data.Repositorio
             return db.QueryFirstOrDefaultAsync<empleados>(consulta, new { Id = ID });
         }
 
-        public Task<bool> insertEmpleado(empleados conductor)
+        public async Task<bool> insertEmpleado(empleados empleados)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"insert into empleados
+                    (Nombre, Edad, NumDoc)
+                    values(@Nombre, @Edad, @NumDoc)";
+            var result = await db.ExecuteAsync(sql, new { empleados.Nombre, empleados.Edad, empleados.NumDoc });
+
+            return result > 0;
         }
 
         public Task<bool> updateEmpleado(empleados conductor)

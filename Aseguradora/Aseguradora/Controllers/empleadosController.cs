@@ -49,10 +49,7 @@ namespace Aseguradora.Controllers
             {
                 return BadRequest();
             }
-            if (ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+
             var update = await _empleadosRepository.updateEmpleado(empleados);
             return Ok(update);
         }

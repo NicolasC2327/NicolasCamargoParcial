@@ -34,10 +34,7 @@ namespace Aseguradora.Controllers
             {
                 return BadRequest();
             }
-            if (ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+
             var created = await _ventasRepository.insertVentas(ventas);
             return Ok(created);
         }

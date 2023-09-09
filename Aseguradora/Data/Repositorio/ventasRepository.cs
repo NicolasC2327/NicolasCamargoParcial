@@ -39,9 +39,15 @@ namespace Data.Repositorio
             return db.QueryFirstOrDefaultAsync<ventas>(consulta, new { Id = ID });
         }
 
-        public Task<bool> insertVentas(ventas ventas)
+        public async Task<bool> insertVentas(ventas ventas)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"insert into ventas
+                    (Clientes_ID, Empleados_ID, Seguros_ID)
+                    values(@Clientes_ID, @Empleados_ID, @Seguros_ID)";
+            var result = await db.ExecuteAsync(sql, new { ventas.clientes_ID, ventas.Empleados_ID, ventas.Seguros_ID });
+
+            return result > 0;
         }
 
         public Task<bool> updateVentas(ventas ventas)

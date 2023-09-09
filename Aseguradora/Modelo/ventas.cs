@@ -10,7 +10,7 @@ namespace Modelo
     {
         public int ID { get; set; }
         public int clientes_ID { get; set; }
-        public int empleados_ID { get; set; }
-        public int seguros_ID { get; set; }
+        public int Empleados_ID { get; set; }
+        public int Seguros_ID { get; set; }
     }
 }

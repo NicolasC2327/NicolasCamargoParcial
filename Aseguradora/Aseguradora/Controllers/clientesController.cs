@@ -31,10 +31,7 @@ namespace Aseguradora.Controllers
             {
                 return BadRequest();
             }
-            if (ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+ 
             var created = await _clienteRepsitory.insertCliente(cliente);
             return Ok(created);
         }
