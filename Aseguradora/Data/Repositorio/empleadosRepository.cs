@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySqlX.XDevAPI;
 
 namespace Data.Repositorio
 {
@@ -53,9 +54,22 @@ namespace Data.Repositorio
             return result > 0;
         }
 
-        public Task<bool> updateEmpleado(empleados conductor)
+        public async Task<bool> updateEmpleado(empleados empleados)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"update empleados set
+                      Nombre = @Nombre,
+                      Edad=@Edad,
+                      NumDoc=@NumDoc
+                      where ID=@ID";
+            var result = await db.ExecuteAsync(sql, new
+            {
+                empleados.Nombre,
+                empleados.Edad,
+                empleados.NumDoc,
+                empleados.ID
+            });
+            return result > 0;
         }
     }
 }

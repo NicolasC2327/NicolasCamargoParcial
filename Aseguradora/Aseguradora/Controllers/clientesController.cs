@@ -43,7 +43,7 @@ namespace Aseguradora.Controllers
                 return BadRequest();
             }
             
-            var update = await _clienteRepsitory.insertCliente(cliente);
+            var update = await _clienteRepsitory.updateCliente(cliente);
             return Ok(update);
         }
         [HttpDelete]
