@@ -6,44 +6,41 @@ namespace Aseguradora.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ConductorController : ControllerBase
+    public class EmpleadoController : ControllerBase
     {
         public readonly iempleadosRepository _empleadosRepository;
 
-        public ConductorController(iempleadosRepository empleadosRepository)
+        public EmpleadoController(iempleadosRepository empleadosRepository)
         {
             _empleadosRepository = empleadosRepository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetConductores()
+        public async Task<IActionResult> GetEmpleados()
         {
             return Ok(await _empleadosRepository.getEmpleados());
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetConductorById(int id)
+        public async Task<IActionResult> GetEmpleadosById(int id)
         {
             return Ok(await _empleadosRepository.getEmpleadosbyID(id));
         }
 
         [HttpPost]
-        public async Task<IActionResult> insertConductor([FromBody] empleados empleados)
+        public async Task<IActionResult> insertEmpleado([FromBody] empleados empleados)
         {
             if (empleados == null)
             {
                 return BadRequest();
             }
-            if (ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+ 
             var created = await _empleadosRepository.insertEmpleado(empleados);
             return Ok(created);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateConductor([FromBody] empleados empleados)
+        public async Task<IActionResult> UpdateEmpleado([FromBody] empleados empleados)
         {
             if (empleados == null)
             {
@@ -55,7 +52,7 @@ namespace Aseguradora.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteConductorById(int id)
+        public async Task<IActionResult> DeleteEmpleadoById(int id)
         {
             return Ok(await _empleadosRepository.deleteEmpleado(id));
         }

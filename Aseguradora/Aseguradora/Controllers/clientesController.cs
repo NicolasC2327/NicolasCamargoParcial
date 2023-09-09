@@ -42,10 +42,7 @@ namespace Aseguradora.Controllers
             {
                 return BadRequest();
             }
-            if (ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            
             var update = await _clienteRepsitory.insertCliente(cliente);
             return Ok(update);
         }
